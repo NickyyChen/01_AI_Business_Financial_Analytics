@@ -1,0 +1,99 @@
+# ============================================================
+# 依赖与运行时产物
+# ============================================================
+node_modules/
+
+# ============================================================
+# 密钥、环境变量与真实业务数据（严禁上传）
+# ============================================================
+.env
+.env.example
+data-platform-web/.env.example
+
+# 真实数据导出与员工表
+excel_dump.json
+table/
+data/
+_payload.json
+task1.txt
+*.docx
+~$*.docx
+
+# 运行日志、测试输出、备份
+logs/
+outputs/
+backup/
+
+# ============================================================
+# 文档（含真实财务数据、同事姓名、内部会议记录，整体忽略）
+# ============================================================
+docs/
+
+# ============================================================
+# 脚本（含大量真实姓名拼音的调试/冒烟脚本，整体忽略）
+# ============================================================
+scripts/
+
+# ============================================================
+# IDE / 工具缓存 / 本地规划
+# ============================================================
+.codex/
+.gstack/
+.idea/
+.cursor/
+.vscode/
+.planning/
+.claude/
+
+# ============================================================
+# 源码中硬编码真实同事姓名 / 飞书 OpenID 的文件（整体忽略）
+# ============================================================
+config.js
+src/agent/pipeline.js
+src/agent/planner.js
+src/app/feishu/message-handler.js
+src/services/memory-manager.js
+src/services/qa-trace-weekly-runner.js
+src/services/weekly-receivables-runner.js
+src/tools/finance-tools.js
+src/utils/worktime-caliber.js
+
+# ============================================================
+# 测试中引用真实同事姓名 / OpenID 的文件（整体忽略）
+# ============================================================
+tests/test-business-monthly-report-fix.js
+tests/test-personal-projects-tag.js
+tests/test-finance-full.js
+tests/memory-cache-failure.test.js
+tests/answer-scope-context.test.js
+tests/pipeline-planner-first.test.js
+tests/test-project-count-quchang.js
+tests/online-log-fixes.test.js
+tests/finance-access-policy.test.js
+tests/test-finance-auth-concurrent.js
+tests/test-pipeline-trace.js
+tests/planning-context-project-scope.test.js
+tests/test-phase2-permission-refactor.js
+tests/risk-engine.test.js
+tests/weekly-receivables-runner.test.js
+tests/worktime-caliber.test.js
+tests/qa-trace-weekly-runner.test.js
+tests/test-phase2-e2e.js
+tests/planner-router-context.test.js
+tests/test-business-monthly-report-e2e.js
+tests/permission-manager.test.js
+tests/healthcheck-template-renderer.test.js
+tests/debug-ceo-scope.js
+tests/field-normalizer.test.js
+tests/monthly-healthcheck-runner.test.js
+tests/planner-person-effort-detail.test.js
+tests/project-access-policy.test.js
+tests/test-new-pipeline-e2e.js
+
+# ============================================================
+# 说明文档（按需排除，不上传）
+# ============================================================
+ASSISTANT.md
+基础概念.md
+企业经营分析智能平台.md
+企业经营分析智能平台_AI全栈简历版.md
