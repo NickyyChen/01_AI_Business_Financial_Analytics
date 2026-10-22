@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="460" viewBox="0 0 1280 460" role="img" aria-labelledby="title desc">
+  <title id="title">01企业经营分析智能平台</title>
+  <desc id="desc">深蓝色封面，展示飞书交互、Agent 任务规划、可信财务计算三层能力。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#081325"/><stop offset="1" stop-color="#14294b"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#57e3c2"/><stop offset="1" stop-color="#67a7ff"/></linearGradient>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse"><path d="M38 0H0V38" fill="none" stroke="#6c8fbb" stroke-opacity=".10"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1L6 4L1 7" fill="none" stroke="#6da8d5" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="1280" height="460" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="460" rx="24" fill="url(#grid)"/>
+  <circle cx="1190" cy="20" r="230" fill="#345fa7" fill-opacity=".12"/>
+  <circle cx="1260" cy="0" r="150" fill="none" stroke="#4bd9bd" stroke-opacity=".13"/>
+  <g font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+    <rect x="52" y="48" width="82" height="82" rx="22" fill="url(#accent)"/>
+    <text x="93" y="105" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="43" font-weight="700" fill="#09233b">01</text>
+    <text x="158" y="72" font-family="DejaVu Sans, sans-serif" font-size="13" letter-spacing="3" fill="#78dfcf">ENTERPRISE ANALYTICS · AI AGENT</text>
+    <text x="154" y="119" font-size="39" font-weight="700" fill="#f2f7ff">01企业经营分析智能平台</text>
+    <text x="54" y="175" font-size="20" fill="#b6c9df">从一句经营问题，到有口径、有权限、有依据的分析结论。</text>
+    <g transform="translate(54 214)">
+      <rect width="366" height="162" rx="17" fill="#142b47" stroke="#345476"/>
+      <rect x="20" y="20" width="38" height="34" rx="10" fill="#244568"/>
+      <path d="M31 30H47M31 36H43M31 42H39" stroke="#8cbdff" stroke-width="2" stroke-linecap="round"/>
+      <text x="72" y="44" font-size="21" font-weight="700" fill="#edf5ff">飞书交互</text>
+      <text x="22" y="91" font-size="16" fill="#b6c9df">自然语言问数 · 澄清与连续追问</text>
+      <text x="22" y="128" font-family="DejaVu Sans, sans-serif" font-size="12" letter-spacing="1.5" fill="#79a9cf">FEISHU / CARDKIT</text>
+    </g>
+    <path d="M428 295H450" fill="none" stroke="#6da8d5" stroke-width="2" marker-end="url(#arrow)"/>
+    <g transform="translate(458 214)">
+      <rect width="366" height="162" rx="17" fill="#12303e" stroke="#398b89"/>
+      <rect x="20" y="20" width="38" height="34" rx="10" fill="#1c504f"/>
+      <path d="M31 28H47V35H31ZM39 35V44M30 44H48" fill="none" stroke="#73e1ca" stroke-width="2" stroke-linejoin="round"/>
+      <text x="72" y="44" font-size="21" font-weight="700" fill="#edf5ff">Agent 任务规划</text>
+      <text x="22" y="91" font-size="16" fill="#b6c9df">结构化计划 · 权限校验 · 工具调用</text>
+      <text x="22" y="128" font-family="DejaVu Sans, sans-serif" font-size="12" letter-spacing="1.5" fill="#70d4c3">PLAN / AUTHORIZE / EXECUTE</text>
+    </g>
+    <path d="M832 295H854" fill="none" stroke="#6da8d5" stroke-width="2" marker-end="url(#arrow)"/>
+    <g transform="translate(862 214)">
+      <rect width="366" height="162" rx="17" fill="#1d2b4b" stroke="#4c618a"/>
+      <rect x="20" y="20" width="38" height="34" rx="10" fill="#344568"/>
+      <path d="M30 43V36M39 43V29M48 43V33" stroke="#b4bdff" stroke-width="3" stroke-linecap="round"/>
+      <text x="72" y="44" font-size="21" font-weight="700" fill="#edf5ff">可信经营分析</text>
+      <text x="22" y="91" font-size="16" fill="#b6c9df">确定性计算 · 结果溯源 · 评测迭代</text>
+      <text x="22" y="128" font-family="DejaVu Sans, sans-serif" font-size="12" letter-spacing="1.5" fill="#a6b5ed">CALCULATE / EXPLAIN / TRACE</text>
+    </g>
+    <circle cx="61" cy="414" r="4" fill="#57e3c2"/>
+    <text x="76" y="420" font-size="14" fill="#9eb7d1">利润与预算</text>
+    <circle cx="239" cy="414" r="4" fill="#67a7ff"/>
+    <text x="254" y="420" font-size="14" fill="#9eb7d1">回款与风险</text>
+    <circle cx="417" cy="414" r="4" fill="#b4bdff"/>
+    <text x="432" y="420" font-size="14" fill="#9eb7d1">角色与数据范围</text>
+    <text x="1228" y="420" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="12" letter-spacing="1.5" fill="#7d9ab9">BUSINESS INTELLIGENCE, IN CONTEXT</text>
+  </g>
+</svg>
