@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/Observability-Langfuse-0f172a?style=flat-square" alt="Langfuse Observability" />
 </p>
 
-[项目概览](#overview) · [功能亮点](#features) · [系统架构](#architecture) · [完整流程](#workflow) · [快速开始](#quick-start) · [评测结果](#evaluation)
+[项目概览](#overview) · [功能亮点](#features) · [系统架构](#architecture) · [快速开始](#quick-start) · [评测结果](#evaluation)
 
 </div>
 
@@ -41,7 +41,6 @@
 
 - [功能亮点与使用场景](#features)
 - [系统架构与技术栈](#architecture)
-- [飞书交互与完整处理流程](#workflow)
 - [核心实现与源码导航](#implementation)
 - [评测结果与统计口径](#evaluation)
 - [目录结构](#structure)
@@ -127,60 +126,6 @@
 
 交互端采用**飞书机器人与 CardKit 消息卡片**。飞书客户端承载聊天界面，应用侧负责接收消息、调用分析链路、更新卡片与保存追问状态。当前项目按这一交互入口介绍。
 
-```mermaid
-flowchart LR
-    subgraph UI[交互层]
-        U[业务用户]
-        F[飞书机器人与消息卡片]
-        H[HTTP 调试入口]
-        U --> F
-    end
-
-    subgraph APP[应用与 Agent 层]
-        A[请求适配与上下文恢复]
-        P[路由 / 澄清 / 结构化规划]
-        R[实体与权限校验]
-        X[统一工具执行]
-        G[结果校验与回答组织]
-        A --> P --> R --> X --> G
-    end
-
-    subgraph DATA[数据与状态层]
-        B[(飞书业务表)]
-        C[基础数据与分析数据缓存]
-        M[近期对话 / 规划摘要 / 澄清状态]
-        B --> C
-    end
-
-    subgraph AI[模型与观测层]
-        L[Doubao / MiniMax]
-        O[Langfuse 执行追踪]
-    end
-
-    F --> A
-    H --> A
-    M --> A
-    R --> C
-    C --> X
-    P <--> L
-    G <--> L
-    G --> F
-    G --> M
-    P -.-> O
-    R -.-> O
-    X -.-> O
-    G -.-> O
-
-    classDef entry fill:#eff6ff,stroke:#3b82f6,color:#172554;
-    classDef core fill:#ecfdf5,stroke:#14b8a6,color:#134e4a;
-    classDef data fill:#f5f3ff,stroke:#8b5cf6,color:#3b0764;
-    class U,F,H entry;
-    class A,P,R,X,G core;
-    class B,C,M,L,O data;
-```
-
-图中是按职责组织的逻辑架构；规划、权限解析及上下文处理在代码中存在多个分支，不能理解成所有请求都必须依次调用全部模块。可确定回答的场景也可以直接使用程序生成的结果。
-
 <a id="stack"></a>
 
 ### 技术栈
@@ -200,79 +145,6 @@ flowchart LR
 | 观测与验证 | Langfuse、端到端评测 | Langfuse／OpenTelemetry、Jest、专项脚本 |
 
 **版本边界：** FastAPI／Pydantic 是项目说明采用的技术口径，当前目录不包含已确认的对应 Python 主服务。启动命令、目录结构与源码链接均按当前参考实现给出，不将 JavaScript 模块描述成 Python 源码。
-
-<a id="workflow"></a>
-
-## 🔄 飞书交互与完整处理流程
-
-### 从一句问题到经营结论
-
-```mermaid
-flowchart TD
-    U[用户在飞书输入经营问题] --> E[接收消息 / 关联用户 / 恢复上下文]
-    E --> ROUTE[识别问数意图与已有条件]
-    ROUTE --> CHECK{项目、期间、指标是否明确}
-    CHECK -- 否 --> ASK[发送澄清问题并保存待澄清状态]
-    ASK --> SUPPLY[用户补充信息]
-    SUPPLY --> E
-    CHECK -- 是 --> PLAN[生成子任务、工具和数据范围]
-    PLAN --> AUTH{真实权限是否允许}
-    AUTH -- 否 --> DENY[说明权限限制并结束本次查询]
-    AUTH -- 是 --> LOAD[按授权范围加载必要数据 / 复用有效缓存]
-    LOAD --> EXEC[执行注册工具 / 计算财务指标]
-    EXEC --> VALID{数据与结果是否完整}
-    VALID -- 否 --> STOP[说明缺失或失败 / 停止相关财务结论]
-    VALID -- 是 --> ANSWER[组织数字、口径、来源与经营建议]
-    ANSWER --> SHOW[更新飞书卡片 / 必要时回退普通消息]
-    SHOW --> SAVE[保存近期对话与规划摘要]
-    SAVE --> FOLLOW[用户继续追问]
-    FOLLOW --> E
-
-    classDef normal fill:#eff6ff,stroke:#3b82f6,color:#172554;
-    classDef decision fill:#fffbeb,stroke:#d97706,color:#78350f;
-    classDef done fill:#ecfdf5,stroke:#059669,color:#064e3b;
-    classDef blocked fill:#fff1f2,stroke:#e11d48,color:#881337;
-    class U,E,ROUTE,ASK,SUPPLY,PLAN,LOAD,EXEC,SAVE,FOLLOW normal;
-    class CHECK,AUTH,VALID decision;
-    class ANSWER,SHOW done;
-    class DENY,STOP blocked;
-```
-
-### 消息卡片如何与后端协作
-
-```mermaid
-sequenceDiagram
-    actor User as 业务用户
-    participant Feishu as 飞书消息与卡片
-    participant App as 请求与会话处理
-    participant Agent as Agent 分析链路
-    participant Data as 权限 / 数据 / 工具
-
-    User->>Feishu: 提出经营问题
-    Feishu->>App: 消息事件
-    App->>Feishu: 创建分析中卡片
-    App->>Agent: 问题与用户上下文
-    alt 信息不足
-        Agent-->>App: 澄清问题与待补全状态
-        App-->>Feishu: 展示澄清问题
-        Feishu-->>User: 请求补充项目、期间或指标
-    else 可以继续分析
-        Agent->>Data: 校验授权范围
-        alt 超出权限
-            Data-->>Agent: 不允许访问
-            Agent-->>App: 权限限制说明
-        else 权限允许
-            Agent->>Data: 加载数据并执行财务工具
-            Data-->>Agent: 结构化结果与完整性状态
-            Agent-->>App: 分析内容或数据缺失说明
-        end
-        App-->>Feishu: 更新卡片内容并结束展示状态
-        Feishu-->>User: 返回本次结果
-    end
-    App->>App: 更新近期对话与追问状态
-```
-
-CardKit 支持内容增量更新，创建卡片失败时可以回退普通消息。当前参考实现中，不同模型分支的返回方式有所区别：部分路径逐段返回，部分路径获得完整文本后再更新卡片。卡片显示效果不等于所有供应方都采用原生 Token 流式返回。
 
 <a id="implementation"></a>
 
